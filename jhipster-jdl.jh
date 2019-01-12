@@ -1,0 +1,248 @@
+entity Assurance {
+    denomination String
+    situationGeographique String
+    telephone String
+    email String
+    deleted Boolean
+}
+
+entity Avenant {
+    code String
+    intitule String
+    date LocalDate
+    fichier Blob
+    deleted Boolean
+}
+
+entity Contrat {
+    code String
+	intitule String
+    dateContrat LocalDate
+    dateFinContrat LocalDate
+    fichier Blob
+    deleted Boolean
+    }
+
+
+entity Reglement{
+    montant Integer
+	direction String
+    dateReglement LocalDate
+    typeReglement String
+    beneficiaire String
+    deleted Boolean
+    }
+    
+    entity Expert {
+    nom String
+	telephone String
+    montantExpertise Double
+    montantIndemnise Double
+    pv Blob
+    deleted Boolean
+    }
+
+
+entity Sinistre { 
+  code String
+  intitule String
+  dateDebut LocalDate
+  dateCloture LocalDate
+  comportement String
+  nombre Integer
+  cause String
+  police String
+  lieu String
+  victime String
+  deleted Boolean
+   }
+   
+   
+   
+  entity Navire { 
+  anneFabrication Integer
+  valeurNeuveHT String
+  valeurVenale String
+  garantieSollicite String
+  quantite Integer
+  localisation String
+  dateAcquisition LocalDate
+  typeMateriel String
+  deleted Boolean
+  
+   }
+   
+   
+ entity Bouee { 
+  anneFabrication Integer
+  valeurNeuveHT String
+  valeurVenale String
+  garantieSollicite String
+  quantite Integer
+  localisation String
+  dateAcquisition LocalDate
+  typeMateriel String
+  deleted Boolean
+  
+   }
+   
+   
+  entity Vehicule { 
+  marque String
+  immatriculation String
+  puissance Integer
+  nbrePlace Integer
+  energie String
+  directionAffectation String
+  zoneCirculation String
+  usage Integer
+  dateAttribution LocalDate
+  valeurNeuve String
+  valeurVenale String
+  intervalAss String
+  typeMateriel String
+  deleted Boolean
+   }
+   
+   entity EnginsDeuxRoues { 
+  marque String
+  immatriculation String
+  puissance Integer
+  nbrePlace Integer
+  energie String
+  directionAffectation String
+  zoneCirculation String
+  usage Integer
+  dateAttribution LocalDate
+  valeurNeuve String
+  valeurVenale String
+  intervalAss String
+  typeMateriel String
+  deleted Boolean
+   }
+   
+   entity EnginsManutention { 
+  marque String
+  immatriculation String
+  puissance Integer
+  nbrePlace Integer
+  energie String
+  directionAffectation String
+  zoneCirculation String
+  usage Integer
+  dateAttribution LocalDate
+  valeurNeuve String
+  valeurVenale String
+  intervalAss String
+  typeMateriel String
+  deleted Boolean
+   }
+   
+     
+  entity Immeuble { 
+  designation String
+  valeurEtat String
+  valeurRetenue String
+  localisation String
+  dateAcquisition LocalDate
+  typeImmeuble String
+  deleted Boolean
+  
+   }
+   
+  entity RCProImmeuble{ 
+  denomination String
+  deleted Boolean
+  
+   }
+   
+ entity MultirisqueOPortuaire{ 
+  designation String
+  valeurEtat String
+  valeurRetenue String
+  deleted Boolean
+  
+   }
+   
+ entity CoffrePlafond{ 
+  marque String
+  services String
+  emplacement String
+  plafond String
+  deleted Boolean
+  
+   }
+   
+   entity IndividuelAccident{ 
+  denomination String
+  nomResponsable String
+  deleted Boolean
+  
+   }
+   
+  entity MaterielInfor{ 
+  designation String
+  nbrepiece Integer
+  valeur Double
+  deleted Boolean
+  
+   }
+   
+   entity AssuranceResp{ 
+  activite String
+  assure String
+  masseSalarial String
+  nbreDocM Integer
+  nbrePharmac Integer
+  nbreInfirm Integer
+  nbreAideS Integer
+  nbreRadiolog Integer
+  nbrePerson Integer
+  deleted Boolean
+  
+   }
+   
+   relationship OneToMany {
+	Assurance{contrat} to Contrat,
+    Sinistre{vehicule} to Vehicule,
+    Sinistre{enginsDeuxRoues} to EnginsDeuxRoues,
+    Sinistre{enginsManutention} to EnginsManutention,
+    Sinistre{navire} to Navire,
+    Sinistre{bouee} to Bouee,
+    Sinistre{immeuble} to Immeuble,
+    Sinistre{materielInfor} to MaterielInfor,
+    Sinistre{rcProImmeuble} to RCProImmeuble,
+    Sinistre{multirisqueOPortuaire} to MultirisqueOPortuaire,
+    Sinistre{coffrePlafond} to CoffrePlafond,
+    Sinistre{assuranceResp} to AssuranceResp,
+    Sinistre{individuelAccident} to IndividuelAccident
+    	
+}
+
+relationship ManyToOne {
+	Expert{sinistre} to Sinistre,
+    Contrat{vehicule} to Vehicule,
+    Contrat{enginsDeuxRoues} to EnginsDeuxRoues,
+    Contrat{enginsManutention} to EnginsManutention,
+    Contrat{navire} to Navire,
+    Contrat{bouee} to Bouee,
+    Contrat{immeuble} to Immeuble,
+    Contrat{materielInfor} to MaterielInfor,
+    Contrat{rcProImmeuble} to RCProImmeuble,
+    Contrat{multirisqueOPortuaire} to MultirisqueOPortuaire,
+    Contrat{coffrePlafond} to CoffrePlafond,
+    Contrat{assuranceResp} to AssuranceResp,
+    Contrat{individuelAccident} to IndividuelAccident
+    
+}
+
+relationship OneToOne {
+	Avenant{contrat} to Contrat
+    Sinistre {reglement} to Reglement
+}
+
+relationship ManyToMany {
+	Assurance{sinistre(code)} to Sinistre{assurance}
+}
+
+  
